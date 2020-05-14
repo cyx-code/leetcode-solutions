@@ -68,7 +68,7 @@ public class MinStack {
 
     private class Node {
         int val;
-        int min; //使用额外内存换取空间
+        int min; //使用额外内存换取时间
         Node next;
 
         public Node(int val, int min) {
