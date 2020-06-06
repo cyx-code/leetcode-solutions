@@ -1,6 +1,7 @@
 package cyx.solution.leetcode.array;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * 给定一个未排序的整数数组，找出最长连续序列的长度。
@@ -18,7 +19,8 @@ import java.util.HashMap;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class LongestConsecutive {
-    /*没看清题目要求时间复杂度为O(n)
+    /*没看清题目要求时间复杂度为O(n),
+    先将数组排序，然后寻找
     public int longestConsecutive(int[] nums) {
         if (nums.length == 0) return 0;
         Arrays.sort(nums);
@@ -33,18 +35,35 @@ public class LongestConsecutive {
                 current = 1;
             }
         }
-        res= Math.max(current, res);
-        return res;
+        return Math.max(current, res);
     }*/
+
+    /**
+     * 采用并查集，时间复杂度为O(n),神奇的是上面那个O(NlogN)解法在leetcode上执行时间要短一点😂
+     * @param nums
+     * @return
+     */
     public int longestConsecutive(int[] nums) {
         if (nums.length == 0) return 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int maxLength = 1;
+        int maxLength = 0;
+        // 先将数组中的元素加入到set集合中（去重，且查询时间为O(1)）
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
         for (int i = 0; i < nums.length; i++) {
-            if (map.get(nums[i]) != null) {
-                continue;
+            // 先找到连续序列的开头元素
+            if (!set.contains(nums[i] - 1)) {
+                int cur = nums[i];
+                int count = 1;
+                // 得到这个开头的连续序列有多长
+                while (set.contains(cur + 1)) {
+                    cur++;
+                    count++;
+                }
+                // 更新这个数组中的最大连续序列
+                maxLength = Math.max(count, maxLength);
             }
-
         }
         return maxLength;
     }
