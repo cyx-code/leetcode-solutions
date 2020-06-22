@@ -20,11 +20,19 @@ package cyx.solution.leetcode.array;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class MaxScoreSightseeingPair {
+    /**
+     * A[i] + A[j] + i - j = A[i] + i + A[j] - j
+     *
+     * @param A
+     * @return
+     */
     public int maxScoreSightseeingPair(int[] A) {
         int maxGrade = Integer.MIN_VALUE;
         int left = 0;
         for (int i = 0; i < A.length; i++) {
+            // 得到最大的观光景点得分
             maxGrade = Math.max(maxGrade, left + A[i] - i);
+            // 得到最大的A[i] + i
             left = Math.max(A[i] + i, left);
         }
         return maxGrade;
