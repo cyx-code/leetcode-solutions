@@ -28,11 +28,13 @@ import java.util.HashSet;
 public class NumJewelsInStones {
     public int numJewelsInStones(String J, String S) {
         HashSet<Character> Jset = new HashSet<>();
+        // 先将J中的字符存放在set中
         for (char j : J.toCharArray()) {
             Jset.add(j);
         }
         int count = 0;
         for (char s : S.toCharArray()) {
+            // 如果字符s在Jset中，相当于💎数量加一
             if (Jset.contains(s)) {
                 count++;
             }
