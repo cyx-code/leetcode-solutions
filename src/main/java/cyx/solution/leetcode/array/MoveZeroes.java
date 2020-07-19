@@ -61,9 +61,9 @@ public class MoveZeroes {
         }
     }
     private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+        nums[i] = nums[i] ^ nums[j];
+        nums[j] = nums[i] ^ nums[j];
+        nums[i] = nums[i] ^ nums[j];
     }
 
     public static void main(String[] args) {
@@ -71,5 +71,6 @@ public class MoveZeroes {
         new MoveZeroes().moveZeroes(nums);
         System.out.println(Arrays.toString(nums));
     }
+
 }
 
